@@ -1,0 +1,32 @@
+FROM nikolaik/python-nodejs:python3.10-nodejs18-slim
+
+WORKDIR /app
+
+# Install system dependencies (build-essential, postgres client libraries, and redis-server)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    redis-server \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy backend requirements and install Python dependencies
+COPY backend/requirements.txt ./backend-requirements.txt
+RUN pip install --no-cache-dir -r backend-requirements.txt
+
+# Copy WhatsApp service package files and install Node dependencies
+COPY whatsapp-service/package*.json ./whatsapp-service/
+RUN cd whatsapp-service && npm install --omit=dev
+
+# Copy application source codes
+COPY backend /app/backend
+COPY whatsapp-service /app/whatsapp-service
+COPY db_schema.sql /app/db_schema.sql
+COPY render_start.sh /app/render_start.sh
+
+# Make start script executable
+RUN chmod +x /app/render_start.sh
+
+# Expose backend FastAPI port
+EXPOSE 8000
+
+CMD ["/app/render_start.sh"]

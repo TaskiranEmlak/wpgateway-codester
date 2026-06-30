@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WPGateway — WhatsApp Toplu Mesaj Paneli</title>
+  <meta name="description" content="Kurumsal WhatsApp toplu mesaj gönderim paneli. OTP, pazarlama kampanyaları, çoklu cihaz yönetimi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="app-container">
+
+    <!-- ====== SIDEBAR ====== -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <span class="logo-text">WPGateway</span>
+        <button id="btn-lang-toggle" class="btn-lang" onclick="toggleLanguage()">EN</button>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" data-tab="dashboard">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          <span data-i18n="sidebar_dashboard">Kontrol Paneli</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="devices">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+          <span data-i18n="sidebar_devices">Cihazlar</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="campaigns">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+          <span data-i18n="sidebar_campaigns">Kampanyalar</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="otp">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          <span data-i18n="sidebar_otp">OTP Gönderimi</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="settings">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.13,5.91,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.67,9.34,2.85,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+          <span data-i18n="sidebar_settings">Ayarlar</span>
+        </a>
+      </nav>
+
+      <div class="user-profile">
+        <div class="profile-info">
+          <div class="profile-name" id="user-display-name">Misafir</div>
+          <div class="profile-credits"><span id="user-display-credits">0</span> <span data-i18n="credits">Kredi</span></div>
+        </div>
+        <button id="btn-logout" class="btn-logout-icon" title="Çıkış">
+          <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4h-2v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <main class="main-content">
+
+      <!-- ====== AUTH MODAL ====== -->
+      <div id="auth-modal" class="auth-overlay active">
+        <div class="auth-box">
+          <h2 class="auth-title">WPGateway</h2>
+          <p class="auth-subtitle" data-i18n="auth_subtitle">WhatsApp Toplu Mesaj Yönetim Paneli</p>
+
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-login-btn" data-i18n="auth_login">Giriş Yap</button>
+            <button class="auth-tab" id="tab-register-btn" data-i18n="auth_register">Kayıt Ol</button>
+          </div>
+
+          <form id="form-login" class="auth-form active">
+            <div class="input-group">
+              <label data-i18n="label_username">Kullanıcı Adı</label>
+              <input type="text" id="login-username" required placeholder="Kullanıcı adınız" data-i18n-placeholder="placeholder_username">
+            </div>
+            <div class="input-group">
+              <label data-i18n="label_password">Şifre</label>
+              <input type="password" id="login-password" required placeholder="Şifreniz" data-i18n-placeholder="placeholder_password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" data-i18n="btn_login">Giriş Yap</button>
+          </form>
+
+          <form id="form-register" class="auth-form">
+            <div class="input-group">
+              <label data-i18n="label_username">Kullanıcı Adı</label>
+              <input type="text" id="reg-username" required placeholder="Kullanıcı adınız" data-i18n-placeholder="placeholder_username">
+            </div>
+            <div class="input-group">
+              <label data-i18n="label_email">E-posta</label>
+              <input type="email" id="reg-email" required placeholder="E-posta adresiniz" data-i18n-placeholder="placeholder_email">
+            </div>
+            <div class="input-group">
+              <label data-i18n="label_password">Şifre</label>
+              <input type="password" id="reg-password" required placeholder="Min 6 karakter" data-i18n-placeholder="placeholder_password_reg">
+            </div>
+            <button type="submit" class="btn btn-accent btn-block" data-i18n="btn_register">Kayıt Ol</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ====== TAB: DASHBOARD ====== -->
+      <section id="tab-dashboard" class="tab-pane active">
+        <header class="section-header">
+          <h1 data-i18n="dash_header">Kontrol Paneli</h1>
+        </header>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon stat-blue">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3 data-i18n="dash_credits">Toplam Kredi</h3>
+              <p id="stat-credits">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-green">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3 data-i18n="dash_sent">Gönderilen</h3>
+              <p id="stat-sent">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-orange">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3 data-i18n="dash_failed">Başarısız</h3>
+              <p id="stat-failed">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-purple">
+              <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3 data-i18n="dash_active_dev">Aktif Cihaz</h3>
+              <p id="stat-devices">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-area">
+          <div class="grid-2col">
+            <div class="panel">
+              <div class="panel-header" data-i18n="dash_chart_title">Kampanya İstatistikleri</div>
+              <div class="chart-container">
+                <canvas id="campaignChart"></canvas>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-header" data-i18n="dash_pool_title">Bağlı Cihazlar</div>
+              <div class="device-list-mini" id="mini-devices-list">
+                <div class="no-data" data-i18n="dash_no_dev">Cihaz bulunamadı. 'Cihazlar' sekmesinden bağlayın.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== TAB: DEVICES ====== -->
+      <section id="tab-devices" class="tab-pane">
+        <header class="section-header">
+          <h1 data-i18n="dev_header">Cihaz Yönetimi</h1>
+          <button id="btn-add-device" class="btn btn-primary" data-i18n="dev_add_btn">+ Yeni Cihaz</button>
+        </header>
+        <div class="devices-grid" id="devices-list">
+          <div class="no-data" data-i18n="dev_loading">Cihazlar yükleniyor...</div>
+        </div>
+
+        <!-- Add Device Modal -->
+        <div id="modal-device" class="modal-overlay">
+          <div class="modal-box">
+            <h3 class="modal-title" data-i18n="modal_add_title">Yeni WhatsApp Bağlantısı</h3>
+            <form id="form-device">
+              <div class="input-group">
+                <label data-i18n="modal_label_name">Bağlantı Adı</label>
+                <input type="text" id="device-name" required placeholder="Örn: Hat 1">
+              </div>
+              <div class="input-group">
+                <label data-i18n="modal_label_proxy">Proxy (Opsiyonel)</label>
+                <input type="text" id="device-proxy" placeholder="socks5://user:pass@ip:port">
+                <span class="input-desc" data-i18n="modal_desc_proxy">Ban riskini azaltmak için her hat için ayrı proxy kullanılması önerilir.</span>
+              </div>
+              <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('modal-device')" data-i18n="btn_cancel">İptal</button>
+                <button type="submit" class="btn btn-primary" data-i18n="btn_init">Bağlantıyı Başlat</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Connection Modal (QR & Pairing Code) -->
+        <div id="modal-qr" class="modal-overlay">
+          <div class="modal-box text-center">
+            <h3 class="modal-title" data-i18n="modal_qr_title">WhatsApp'ı Bağla</h3>
+            
+            <div class="auth-tabs" style="margin-top: 10px; margin-bottom: 15px; display: flex; gap: 4px;">
+              <button type="button" class="auth-tab active" id="tab-qr-btn" onclick="switchLinkMode('qr')" style="flex:1; cursor:pointer;" data-i18n="modal_qr_tab">QR Kod</button>
+              <button type="button" class="auth-tab" id="tab-pair-btn" onclick="switchLinkMode('pair')" style="flex:1; cursor:pointer;" data-i18n="modal_pair_tab">Eşleştirme Kodu</button>
+            </div>
+
+            <!-- Link Mode: QR -->
+            <div id="link-mode-qr" class="link-mode-pane active">
+              <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:12px;" data-i18n="modal_qr_desc">Telefonunuzdan Bağlı Cihazlar → Cihaz Bağla → QR Tara</p>
+              <div class="qr-container" id="qr-box" style="margin: 0 auto; display:flex; justify-content:center; align-items:center;">
+                <div id="qr-spinner" class="spinner"></div>
+                <img id="qr-img" class="qr-code-img" src="" alt="QR Code">
+                <div id="qr-connected-status" class="qr-success-overlay">
+                  <div class="success-checkmark">✔</div>
+                  <p data-i18n="qr_success_connected">Bağlandı!</p>
+                </div>
+              </div>
+              <p class="qr-desc" data-i18n="qr_desc" style="margin-top:10px;">Kod otomatik yenilenir. Ekranı açık tutun.</p>
+            </div>
+
+            <!-- Link Mode: Pairing Code -->
+            <div id="link-mode-pair" class="link-mode-pane" style="display:none;">
+              <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:12px;" data-i18n="modal_pair_desc">Telefon numaranızı girerek 8 haneli bir bağlantı kodu oluşturun.</p>
+              
+              <div class="input-group text-left" style="margin-bottom: 12px;">
+                <label data-i18n="modal_pair_label_phone">Telefon Numarası (Ülke koduyla)</label>
+                <div style="display:flex; gap:8px;">
+                  <input type="text" id="link-pair-phone" placeholder="905551234567" data-i18n-placeholder="placeholder_pair_phone" style="flex:1; padding: 10px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-card); color: var(--text-primary);">
+                  <button type="button" class="btn btn-primary" onclick="generatePairingCode()" id="btn-get-pair-code" style="padding:0 14px; cursor:pointer;" data-i18n="modal_pair_btn_generate">Kod Üret</button>
+                </div>
+              </div>
+
+              <!-- Code Display Area -->
+              <div id="pairing-code-display" style="display:none; height: 120px; flex-direction:column; justify-content:center; align-items:center; background:var(--bg-card); border-radius:var(--radius); border:1px solid var(--border); margin:15px 0; position:relative; overflow:hidden;">
+                <div id="pair-spinner" class="spinner" style="display:none;"></div>
+                <div id="pair-code-text" style="font-size:2rem; font-weight:700; color:var(--accent); letter-spacing:4px; font-family:monospace;">ABCD-EFGH</div>
+                <div id="pair-connected-status" class="qr-success-overlay">
+                  <div class="success-checkmark">✔</div>
+                  <p data-i18n="qr_success_connected">Bağlandı!</p>
+                </div>
+              </div>
+
+              <p style="font-size:0.75rem; color:var(--text-secondary); line-height:1.4; text-align:left;" data-i18n="modal_pair_instructions">
+                Telefondan <strong>Bağlı Cihazlar</strong> → <strong>Cihaz Bağla</strong> kısmına gidin. <br>
+                Ardından <strong>"Telefon numarası ile bağla"</strong> seçeneğine tıklayıp bu kodu girin.
+              </p>
+            </div>
+
+            <div class="modal-actions" style="margin-top:15px;">
+              <button type="button" class="btn btn-secondary btn-block" onclick="stopQrPolling()" data-i18n="qr_close_btn">Kapat</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auto Responder Modal -->
+        <div id="modal-responder" class="modal-overlay">
+          <div class="modal-box wide">
+            <h3 class="modal-title" data-i18n="resp_modal_title">Otomatik Yanıtlayıcılar</h3>
+            <div class="responder-setup-grid">
+              <form id="form-responder">
+                <div class="input-group">
+                  <label data-i18n="resp_label_keyword">Tetikleyici Kelime</label>
+                  <input type="text" id="resp-keyword" required placeholder="örn: fiyat" data-i18n-placeholder="resp_placeholder_keyword">
+                </div>
+                <div class="input-group">
+                  <label data-i18n="resp_label_reply">Yanıt Mesajı</label>
+                  <textarea id="resp-reply" rows="3" required placeholder="Otomatik yanıt..." data-i18n-placeholder="resp_placeholder_reply"></textarea>
+                </div>
+                <div class="input-group checkbox-group">
+                  <input type="checkbox" id="resp-wildcard" checked>
+                  <label for="resp-wildcard" data-i18n="resp_label_wildcard">Kısmi eşleşme (kelimeyi içerirse)</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="resp_btn_add">Kural Ekle</button>
+              </form>
+              <div>
+                <div class="panel-header" data-i18n="resp_header_active" style="font-size:0.85rem;">Aktif Kurallar</div>
+                <div class="responder-list" id="responders-list">
+                  <div class="no-data" data-i18n="resp_no_rules">Henüz kural eklenmedi.</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" onclick="closeModal('modal-responder')" data-i18n="btn_close">Kapat</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Message Generator Modal -->
+        <div id="modal-ai-generator" class="modal-overlay">
+          <div class="modal-box">
+            <h3 class="modal-title" data-i18n="modal_ai_gen_title">Yapay Zeka Metin Yazarı</h3>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:12px;" data-i18n="modal_ai_gen_desc">Yazmak istediğiniz kampanya konusunu kısaca belirtin, Groq AI sizin için profesyonel bir mesaj hazırlasın.</p>
+            <div class="input-group">
+              <label data-i18n="modal_label_ai_prompt">Kampanya Konusu / Detayları</label>
+              <textarea id="ai-generator-prompt" rows="3" placeholder="örn: Yeni emlak projemiz için Ramazan indirim duyurusu, değişkenleri kullansın." data-i18n-placeholder="placeholder_ai_prompt"></textarea>
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" onclick="closeModal('modal-ai-generator')" data-i18n="btn_cancel">İptal</button>
+              <button type="button" class="btn btn-primary" onclick="generateCampaignMessageWithAi()" id="btn-generate-ai">
+                <span id="ai-gen-text" data-i18n="btn_generate">Oluştur</span>
+                <div id="ai-gen-spinner" class="spinner" style="display:none; width:14px; height:14px; margin-left:6px; border-width:2px;"></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== TAB: CAMPAIGNS ====== -->
+      <section id="tab-campaigns" class="tab-pane">
+        <header class="section-header">
+          <h1 data-i18n="camp_header">Kampanya Yönetimi</h1>
+        </header>
+
+        <div class="content-area">
+          <div class="grid-2col-campaign">
+            <!-- Campaign Creator -->
+            <div class="panel">
+              <div class="panel-header" data-i18n="camp_create_title">Yeni Kampanya</div>
+              <form id="form-campaign">
+                <div class="input-group">
+                  <label data-i18n="camp_label_name">Kampanya Adı</label>
+                  <input type="text" id="camp-name" required placeholder="Örn: Yaz Kampanyası 2026" data-i18n-placeholder="placeholder_camp_name">
+                </div>
+
+                <div class="input-group">
+                  <label data-i18n="camp_label_pool">Gönderici Cihazları</label>
+                  <div class="device-pool-checklist" id="camp-devices-pool">
+                    <div class="no-data" data-i18n="camp_no_dev" style="padding:10px 0; font-size:0.75rem;">Bağlı cihaz yok.</div>
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label data-i18n="camp_label_recipients">Alıcı Numaraları</label>
+                  <textarea id="camp-recipients" rows="3" required placeholder="905551234567&#10;447700900077&#10;..." data-i18n-placeholder="placeholder_camp_recipients"></textarea>
+                </div>
+
+                <!-- File Import Zone -->
+                <div class="file-drop-zone" id="file-drop-zone"
+                     onclick="document.getElementById('file-import').click()">
+                  <div class="drop-icon">📂</div>
+                  <div class="drop-text"><strong data-i18n="drop_click">Dosya seçin</strong> <span data-i18n="drop_or_drag">veya sürükleyip bırakın</span></div>
+                  <div class="drop-formats">.txt, .csv</div>
+                </div>
+                <input type="file" id="file-import" accept=".txt,.csv" style="display:none;" onchange="importFile(this)">
+
+                <div class="input-group">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <label data-i18n="camp_label_msg" style="margin-bottom:0;">Mesaj İçeriği</label>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="showAiGeneratorModal()" style="padding:2px 8px; font-size:0.75rem; display:flex; align-items:center; gap:4px; cursor:pointer;" data-i18n="btn_write_with_ai">
+                      ✨ AI ile Yaz
+                    </button>
+                  </div>
+                  <textarea id="camp-message" rows="4" required placeholder="{Selam|Merhaba} {İsim}, bugüne özel fırsat!" data-i18n-placeholder="placeholder_camp_msg" onkeyup="previewSpintax()"></textarea>
+                  <span class="input-desc" data-i18n="camp_desc_msg">Spintax: {Seçenek1|Seçenek2} — Değişken: {İsim}, {Kod}</span>
+                </div>
+
+                <div class="spintax-preview-box" id="spintax-preview-area">
+                  <strong data-i18n="camp_preview">Önizleme:</strong> <span id="spintax-preview-text" data-i18n="camp_placeholder_preview_msg">Mesaj yazın...</span>
+                </div>
+
+                <div class="grid-2col">
+                  <div class="input-group">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                      <label data-i18n="camp_label_media" style="margin-bottom:0;">Medya Dosyası (URL veya Yükle)</label>
+                      <label for="media-file-upload" class="btn btn-secondary btn-sm" style="padding:2px 8px; font-size:0.75rem; cursor:pointer; margin-bottom:0;" data-i18n="btn_choose_file">
+                        📁 Dosya Seç
+                      </label>
+                      <input type="file" id="media-file-upload" style="display:none;" onchange="uploadLocalMedia(this)">
+                    </div>
+                    <input type="text" id="camp-media-url" placeholder="https://... veya dosya yükleyin" data-i18n-placeholder="placeholder_camp_media_url">
+                  </div>
+                  <div class="input-group">
+                    <label data-i18n="camp_label_media_type">Medya Türü</label>
+                    <select id="camp-media-type">
+                      <option value="image" data-i18n="media_type_image">Görsel</option>
+                      <option value="video" data-i18n="media_type_video">Video</option>
+                      <option value="document" data-i18n="media_type_document">Belge / PDF</option>
+                      <option value="audio" data-i18n="media_type_audio">Ses</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="grid-2col">
+                  <div class="input-group">
+                    <label data-i18n="camp_label_min_delay">Min Gecikme (sn)</label>
+                    <input type="number" id="camp-min-delay" value="5" min="1">
+                  </div>
+                  <div class="input-group">
+                    <label data-i18n="camp_label_max_delay">Max Gecikme (sn)</label>
+                    <input type="number" id="camp-max-delay" value="15" min="2">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label data-i18n="camp_label_schedule">Zamanlama (Opsiyonel)</label>
+                  <input type="datetime-local" id="camp-schedule">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="camp_launch_btn">Kampanyayı Başlat</button>
+              </form>
+            </div>
+
+            <!-- Campaign History -->
+            <div class="panel">
+              <div class="panel-header" data-i18n="camp_history_title">Kampanya Geçmişi</div>
+              <div class="campaign-history-list" id="campaigns-history">
+                <div class="no-data" data-i18n="camp_no_history">Henüz kampanya yok.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== TAB: OTP ====== -->
+      <section id="tab-otp" class="tab-pane">
+        <header class="section-header">
+          <h1 data-i18n="otp_header">OTP Gönderimi</h1>
+        </header>
+
+        <div class="content-area">
+          <div class="grid-2col">
+            <div class="panel">
+              <div class="panel-header" data-i18n="otp_send_title">OTP Gönder</div>
+              <p class="panel-desc" data-i18n="otp_desc">OTP mesajları kuyruğu atlar, anında gönderilir.</p>
+              <form id="form-otp">
+                <div class="input-group">
+                  <label data-i18n="otp_label_num">Telefon Numarası</label>
+                  <input type="text" id="otp-recipient" required placeholder="905551234567" data-i18n-placeholder="placeholder_otp_recipient">
+                </div>
+                <div class="input-group">
+                  <label data-i18n="otp_label_msg">Doğrulama Mesajı</label>
+                  <textarea id="otp-message" rows="3" required placeholder="Kodunuz: 629851" data-i18n-placeholder="placeholder_otp_msg"></textarea>
+                </div>
+                <button type="submit" class="btn btn-accent btn-block" data-i18n="otp_btn">Anında Gönder</button>
+              </form>
+            </div>
+            <div class="panel">
+              <div class="panel-header" data-i18n="otp_logs_title">Son OTP Kayıtları</div>
+              <div class="logs-table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th data-i18n="otp_table_rec">Alıcı</th>
+                      <th data-i18n="otp_table_msg">Mesaj</th>
+                      <th data-i18n="otp_table_status">Durum</th>
+                    </tr>
+                  </thead>
+                  <tbody id="otp-logs-list">
+                    <tr>
+                      <td colspan="3" class="no-data" data-i18n="otp_no_logs">OTP kaydı yok.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== TAB: SETTINGS ====== -->
+      <section id="tab-settings" class="tab-pane">
+        <header class="section-header">
+          <h1 data-i18n="settings_header">Ayarlar & API</h1>
+        </header>
+
+        <div class="content-area">
+          <div class="grid-2col">
+            <div class="panel">
+              <div class="panel-header" data-i18n="settings_auth_title">API Anahtarı</div>
+              <div class="input-group">
+                <label data-i18n="settings_label_key">REST API Key (X-API-Key)</label>
+                <div class="api-key-box">
+                  <input type="password" id="settings-api-key" readonly value="">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="toggleApiKeyVisibility()" data-i18n="settings_btn_show">Göster</button>
+                </div>
+              </div>
+              <div class="api-docs-preview" style="margin-top: 16px;">
+                <h4 data-i18n="settings_api_docs_title" style="margin-bottom: 8px;">OTP API Entegrasyon Kılavuzu:</h4>
+                <div class="docs-tabs" style="display: flex; gap: 4px; margin-bottom: 8px;">
+                  <button type="button" class="btn btn-secondary btn-sm active" onclick="switchDocLang('curl')" id="doc-btn-curl" style="padding:4px 8px; font-size:0.7rem; cursor:pointer;">cURL</button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchDocLang('python')" id="doc-btn-python" style="padding:4px 8px; font-size:0.7rem; cursor:pointer;">Python</button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchDocLang('node')" id="doc-btn-node" style="padding:4px 8px; font-size:0.7rem; cursor:pointer;">Node.js</button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchDocLang('php')" id="doc-btn-php" style="padding:4px 8px; font-size:0.7rem; cursor:pointer;">PHP</button>
+                </div>
+                
+                <div id="doc-code-curl" class="doc-code-pane active">
+                  <pre><code style="font-size:0.75rem;">curl -X POST http://localhost:8000/api/v1/send-otp \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"recipient":"905551234567","message_text":"Doğrulama kodunuz: 629481"}'</code></pre>
+                </div>
+                
+                <div id="doc-code-python" class="doc-code-pane" style="display:none;">
+                  <pre><code style="font-size:0.75rem;">import requests
+ 
+url = "http://localhost:8000/api/v1/send-otp"
+headers = {
+    "X-API-Key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+payload = {
+    "recipient": "905551234567",
+    "message_text": "Doğrulama kodunuz: 629481"
+}
+ 
+response = requests.post(url, headers=headers, json=payload)
+print(response.json())</code></pre>
+                </div>
+                
+                <div id="doc-code-node" class="doc-code-pane" style="display:none;">
+                  <pre><code style="font-size:0.75rem;">const axios = require('axios');
+ 
+const url = 'http://localhost:8000/api/v1/send-otp';
+const headers = {
+  'X-API-Key': 'YOUR_API_KEY',
+  'Content-Type': 'application/json'
+};
+const payload = {
+  recipient: '905551234567',
+  message_text: 'Doğrulama kodunuz: 629481'
+};
+ 
+axios.post(url, payload, { headers })
+  .then(res => console.log(res.data))
+  .catch(err => console.error(err.response ? err.response.data : err.message));</code></pre>
+                </div>
+                
+                <div id="doc-code-php" class="doc-code-pane" style="display:none;">
+                  <pre><code style="font-size:0.75rem;">&lt;?php
+ 
+$url = 'http://localhost:8000/api/v1/send-otp';
+$headers = [
+    'X-API-Key: YOUR_API_KEY',
+    'Content-Type: application/json'
+];
+$payload = [
+    'recipient' => '905551234567',
+    'message_text' => 'Doğrulama kodunuz: 629481'
+];
+ 
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+ 
+$response = curl_exec($ch);
+curl_close($ch);
+ 
+echo $response;</code></pre>
+                </div>
+              </div>
+            </div>
+ 
+            <div class="panel">
+              <div class="panel-header" data-i18n="settings_webhook_title">Webhook URL</div>
+              <p class="panel-desc" data-i18n="settings_webhook_desc">Durum güncellemeleri bu URL'ye POST edilir.</p>
+              <form id="form-webhook">
+                <div class="input-group">
+                  <label data-i18n="settings_webhook_label">Webhook URL</label>
+                  <input type="url" id="settings-webhook-url" placeholder="https://domain.com/webhook" data-i18n-placeholder="placeholder_webhook">
+                </div>
+                <button type="submit" class="btn btn-primary" data-i18n="settings_webhook_btn">Kaydet</button>
+              </form>
+            </div>
+          </div>
+ 
+          <div class="grid-2col" style="margin-top: 8px;">
+            <div class="panel">
+              <div class="panel-header" data-i18n="settings_billing_title">Kredi Yükleme (Simülasyon)</div>
+              <p class="panel-desc" data-i18n="settings_billing_desc">Her mesaj 1 kredi düşer.</p>
+              <form id="form-credits">
+                <div class="input-group">
+                  <label data-i18n="settings_billing_label">Miktar</label>
+                  <select id="credits-amount">
+                    <option value="500" data-i18n="credits_amount_500">500 Kredi</option>
+                    <option value="2000" data-i18n="credits_amount_2000">2.000 Kredi</option>
+                    <option value="10000" data-i18n="credits_amount_10000">10.000 Kredi</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-accent" data-i18n="settings_billing_btn">Yükle</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

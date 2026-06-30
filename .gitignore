@@ -1,0 +1,27 @@
+# Python virtual environments and caches
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/.venv/
+**/venv/
+**/.env
+**/.pytest_cache/
+
+# Node.js dependencies
+**/node_modules/
+**/npm-debug.log*
+**/yarn-error.log*
+
+# Application WhatsApp sessions (very important to keep private!)
+/sessions/
+**/sessions/
+
+# Large ZIP archives and schemas
+*.zip
+*.tar.gz
+
+# Local OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

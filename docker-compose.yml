@@ -1,0 +1,127 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: wpgateway_db
+    restart: always
+    environment:
+      POSTGRES_USER: wpgateway_user
+      POSTGRES_PASSWORD: wpgateway_password
+      POSTGRES_DB: wpgateway_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db_schema.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - wpgateway_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: wpgateway_redis
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - wpgateway_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wpgateway_backend
+    restart: always
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://wpgateway_user:wpgateway_password@db:5432/wpgateway_db
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET=wpgateway_super_secret_key_12345
+      - JWT_ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=1440
+      - OPENAI_API_KEY=your_openai_or_groq_api_key_here
+      - WHATSAPP_SERVICE_URL=http://whatsapp_service:3000
+    depends_on:
+      - db
+      - redis
+    networks:
+      - wpgateway_net
+
+  celery_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wpgateway_celery
+    restart: always
+    command: celery -A app.tasks.campaign.celery_app worker --loglevel=info --concurrency=4
+    volumes:
+      - ./backend:/app
+    environment:
+      - DATABASE_URL=postgresql://wpgateway_user:wpgateway_password@db:5432/wpgateway_db
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_SECRET=wpgateway_super_secret_key_12345
+      - JWT_ALGORITHM=HS256
+      - OPENAI_API_KEY=your_openai_or_groq_api_key_here
+      - WHATSAPP_SERVICE_URL=http://whatsapp_service:3000
+    depends_on:
+      - db
+      - redis
+    networks:
+      - wpgateway_net
+
+  status_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wpgateway_status_worker
+    restart: always
+    command: python -m app.tasks.status_worker
+    volumes:
+      - ./backend:/app
+    environment:
+      - DATABASE_URL=postgresql://wpgateway_user:wpgateway_password@db:5432/wpgateway_db
+      - REDIS_URL=redis://redis:6379/0
+      - OPENAI_API_KEY=your_openai_or_groq_api_key_here
+    depends_on:
+      - db
+      - redis
+    networks:
+      - wpgateway_net
+
+  whatsapp_service:
+    build:
+      context: ./whatsapp-service
+      dockerfile: Dockerfile
+    container_name: wpgateway_whatsapp
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./whatsapp-service:/app
+      - /app/node_modules
+      - ./sessions:/app/sessions
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://wpgateway_user:wpgateway_password@db:5432/wpgateway_db
+      - REDIS_URL=redis://redis:6379/0
+      - OPENAI_API_KEY=your_openai_or_groq_api_key_here
+    depends_on:
+      - db
+      - redis
+    networks:
+      - wpgateway_net
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  wpgateway_net:
+    driver: bridge
