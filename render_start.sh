@@ -15,10 +15,10 @@ sleep 2
 export REDIS_URL="redis://127.0.0.1:6379/0"
 export WHATSAPP_SERVICE_URL="http://127.0.0.1:3000"
 
-# Start Node.js WhatsApp Service in background
+# Start Node.js WhatsApp Service in background (force port 3000 to avoid conflicting with Render's public PORT)
 echo "[SYSTEM] Starting WhatsApp Service (Baileys)..."
 cd /app/whatsapp-service
-npm start &
+PORT=3000 npm start &
 
 # Start Celery Worker in background (concurrency=1 to fit Render Free memory)
 echo "[SYSTEM] Starting Celery Worker..."
@@ -29,6 +29,6 @@ celery -A app.tasks.campaign.celery_app worker --loglevel=info --concurrency=1 &
 echo "[SYSTEM] Starting Status Worker..."
 python -m app.tasks.status_worker &
 
-# Start FastAPI main application in foreground (so the container remains active)
-echo "[SYSTEM] Starting FastAPI Backend on port 8000..."
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+# Start FastAPI main application in foreground (binding to Render's public PORT, which defaults to 10000 or 8000 fallback)
+echo "[SYSTEM] Starting FastAPI Backend on port ${PORT:-8000}..."
+uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
