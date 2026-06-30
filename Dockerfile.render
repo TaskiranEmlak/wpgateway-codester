@@ -2,11 +2,12 @@ FROM nikolaik/python-nodejs:python3.10-nodejs18-slim
 
 WORKDIR /app
 
-# Install system dependencies (build-essential, postgres client libraries, and redis-server)
+# Install system dependencies (build-essential, postgres client libraries, redis-server, and git)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     redis-server \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy backend requirements and install Python dependencies
