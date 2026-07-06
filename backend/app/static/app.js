@@ -378,8 +378,8 @@ const translations = {
 
 // ====== TRANSLATOR ======
 function t(key, vars = {}) {
-  const lang = localStorage.getItem('lang') || 'tr';
-  let text = (translations[lang] && translations[lang][key]) || (translations['tr'] && translations['tr'][key]) || key;
+  const lang = localStorage.getItem('lang') || 'en';
+  let text = (translations[lang] && translations[lang][key]) || (translations['en'] && translations['en'][key]) || key;
   for (const [k, v] of Object.entries(vars)) {
     text = text.replace(`{${k}}`, v);
   }
@@ -387,7 +387,7 @@ function t(key, vars = {}) {
 }
 
 function toggleLanguage() {
-  const curr = localStorage.getItem('lang') || 'tr';
+  const curr = localStorage.getItem('lang') || 'en';
   const next = curr === 'tr' ? 'en' : 'tr';
   localStorage.setItem('lang', next);
   updatePageLanguage();
@@ -395,7 +395,7 @@ function toggleLanguage() {
 }
 
 function updatePageLanguage() {
-  const lang = localStorage.getItem('lang') || 'tr';
+  const lang = localStorage.getItem('lang') || 'en';
   const btn = document.getElementById('btn-lang-toggle');
   if (btn) btn.textContent = lang === 'tr' ? 'EN' : 'TR';
   document.documentElement.lang = lang;
