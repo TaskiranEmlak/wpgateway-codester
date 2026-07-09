@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WPGateway — Enterprise WhatsApp Marketing & AI Chatbot Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ========================================== -->
+  <!-- WARRIORPLUS SALES PAGE TRACKING CODE (PIXEL) -->
+  <script type="text/javascript" src="https://warriorplus.com/o2/js/v0333p" defer></script>
+  <!-- ========================================== -->
+  
+  <style>
+    :root {
+      --bg: #090e11;
+      --bg-panel: rgba(255, 255, 255, 0.03);
+      --bg-card: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(0, 168, 132, 0.4);
+      --accent: #00a884;
+      --accent-hover: #008f70;
+      --text-primary: #e9edef;
+      --text-secondary: #8696a0;
+      --text-muted: #667781;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ====== HEADER ====== */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9, 14, 17, 0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent);
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .btn-login {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .btn-login:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ====== HERO SECTION ====== */
+    .hero {
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0, 168, 132, 0.1);
+      border: 1px solid rgba(0, 168, 132, 0.2);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--accent), #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 36px auto;
+    }
+
+    .mockup-container {
+      margin-top: 40px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 10px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mockup-img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ====== FEATURES ====== */
+    .features {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .section-title p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 168, 132, 0.1);
+      border: 1px solid rgba(0, 168, 132, 0.2);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--accent);
+    }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ====== PRICING SECTION ====== */
+    .pricing {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg), rgba(0, 168, 132, 0.03));
+    }
+
+    .pricing-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.02);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .pricing-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .pricing-price {
+      margin: 24px 0;
+    }
+
+    .price-regular {
+      text-decoration: line-through;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin-right: 8px;
+    }
+
+    .price-sale {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin: 30px 0;
+      padding: 0 10px;
+    }
+
+    .pricing-features li {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* ====== BUY BUTTON AREA ====== */
+    .buy-button-wrapper {
+      margin: 30px 0 15px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Fallback default design until the user pastes the real WarriorPlus button */
+    .wplus-fallback-btn {
+      display: inline-block;
+      background-color: #ff9900;
+      background-image: linear-gradient(180deg, #ffb300, #ff8c00);
+      border: 1px solid #d97706;
+      color: #000;
+      padding: 14px 32px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+      transition: all var(--transition);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .wplus-fallback-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+    }
+
+    /* ====== COMPLIANCE DISCLAIMERS ====== */
+    .disclaimer-box {
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      font-size: 0.725rem;
+      color: var(--text-muted);
+      text-align: left;
+      line-height: 1.4;
+    }
+
+    .disclaimer-box strong {
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ====== FOOTER ====== */
+    footer {
+      background: #06090c;
+      padding: 60px 0 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: #fff;
+    }
+
+    .footer-disclaimer {
+      max-width: 800px;
+      margin: 24px auto 0 auto;
+      color: var(--text-muted);
+      line-height: 1.5;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .pricing-card { padding: 24px; }
+      .price-sale { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <div class="logo-dot"></div>
+        WPGateway
+      </div>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="/dashboard" class="btn-login">Dashboard Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">One-Time Payment • Self-Hosted</div>
+      <h1>Smarter WhatsApp Marketing with <span>Built-in Llama-3 AI</span></h1>
+      <p>Connect unlimited WhatsApp accounts, run targeted campaigns with randomized delays, automate auto-replies, and generate high-conversion templates on the fly.</p>
+      
+      <div style="margin-bottom: 40px;">
+        <a href="#pricing" class="wplus-fallback-btn" style="background: var(--accent); background-image: none; border-color: var(--accent); color: #fff; font-size: 1rem; box-shadow: none;">Get WPGateway Now</a>
+      </div>
+
+      <div class="mockup-container">
+        <img class="mockup-img" src="/static/preview.png" alt="WPGateway Live Panel Mockup">
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FEATURES ====== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Engineered for Performance & Security</h2>
+        <p>A full-fledged bulk marketing automation suite and alert gateway designed without limitations.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+          </div>
+          <h3>Multi-Device Synchronization</h3>
+          <p>Link multiple WhatsApp numbers simultaneously. Send campaigns from different accounts via QR Code scanning or 8-digit pairing codes.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+          </div>
+          <h3>Smart Campaign Scheduler</h3>
+          <p>Schedule campaigns or send instantly. Define randomized delay intervals, spintax formatting <code>{Selam|Merhaba}</code>, and personal variables like <code>{Name}</code> to guard account health.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          </div>
+          <h3>Dedicated SOCKS5/HTTP Proxy</h3>
+          <p>Assign dedicated proxies to each phone line. Mask your IP footprint to reduce the risk of numbers being flags or restricted by algorithms.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+          </div>
+          <h3>Llama-3 AI Copywriter</h3>
+          <p>Utilize the built-in AI Message Writer to draft high-conversion marketing messages in seconds, or activate Llama-3 AI Auto Reply for automatic customer support.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <h3>OTP REST API Gateway</h3>
+          <p>Integrate your verification notifications, alerts, or invoices. Send high-priority OTP messages instantly using standard cURL, PHP, Python, or Node.js scripts.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          </div>
+          <h3>Glassmorphism Admin Dashboard</h3>
+          <p>Track metrics with absolute clarity. Visualize total credits, successful delivers, fails, and active sessions on detailed delivery graphs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PRICING ====== -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h2>Lifetime License — Special Offer</h2>
+        <p>Get full access to WPGateway today at a special discounted one-time price.</p>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-badge">Best Value Deal</div>
+        <h3>WPGateway License</h3>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Self-Hosted Code Package</p>
+        
+        <div class="pricing-price">
+          <span class="price-regular">$97</span>
+          <span class="price-sale">$39</span>
+        </div>
+
+        <ul class="pricing-features">
+          <li>Link unlimited WhatsApp channels</li>
+          <li>Built-in Llama-3 AI metin yazarı</li>
+          <li>AI Auto Reply & chatbot automation</li>
+          <li>REST API key for external integrations</li>
+          <li>Proxy configuration per phone line</li>
+          <li>Smart Spintax & delay ban protection</li>
+          <li>Full Docker configuration files</li>
+          <li>Lifetime updates & personal setup support</li>
+        </ul>
+
+        <!-- ========================================== -->
+        <!-- WARRIORPLUS BUY BUTTON AREA -->
+        <!-- PASTE YOUR WARRIORPLUS BUTTON CODE HERE -->
+        <!-- ========================================== -->
+        <div class="buy-button-wrapper">
+          <a href="#" class="wplus-fallback-btn">Buy WPGateway Now</a>
+        </div>
+        <!-- ========================================== -->
+
+        <!-- Standard Near-Button Earnings Disclaimer -->
+        <div class="disclaimer-box">
+          <strong>Earnings & Legal Disclaimer:</strong>
+          We do not believe in get-rich-quick schemes. The software and materials provided on this page are for automation and utility purposes. There is no guarantee that you will earn any money or get specific business results by using these techniques or ideas. Your success depends on your own efforts, marketing strategies, and target audience.
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#features" class="footer-link">Features</a>
+        <a href="#pricing" class="footer-link">Pricing</a>
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
+        <a href="/dashboard" class="footer-link">Login Dashboard</a>
+      </div>
+      
+      <p>© 2026 WPGateway. All Rights Reserved. For customer support, contact us at: <strong>tskrnkaan@gmail.com</strong></p>
+      
+      <div class="footer-disclaimer">
+        <p>Disclaimer: This product is not affiliated with, endorsed by, or associated with WhatsApp or Meta Platforms, Inc. WhatsApp is a registered trademark of WhatsApp Inc.</p>
+        <p style="margin-top: 8px;">WarriorPlus is used to process payments and handle affiliate tracking. WarriorPlus does not endorse, review, or verify this product or any claims made in its marketing. Please refer to our full privacy policy for information regarding cookies and data handling.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

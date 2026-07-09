@@ -684,11 +684,26 @@ def generate_message(
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.get("/dashboard")
-@app.get("/")
-def read_root():
-    # Redirect root paths to static dashboard file
+def read_dashboard():
     from fastapi.responses import FileResponse
     static_file_path = "app/static/index.html"
     if os.path.exists(static_file_path):
         return FileResponse(static_file_path)
     return {"message": "Frontend static file index.html is missing. Place it in app/static/index.html"}
+
+@app.get("/privacy")
+def read_privacy():
+    from fastapi.responses import FileResponse
+    static_file_path = "app/static/privacy.html"
+    if os.path.exists(static_file_path):
+        return FileResponse(static_file_path)
+    return {"message": "Frontend static file privacy.html is missing. Place it in app/static/privacy.html"}
+
+@app.get("/")
+def read_root():
+    # Serve sales landing page on root URL
+    from fastapi.responses import FileResponse
+    static_file_path = "app/static/sales.html"
+    if os.path.exists(static_file_path):
+        return FileResponse(static_file_path)
+    return {"message": "Frontend static file sales.html is missing. Place it in app/static/sales.html"}
