@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WPGateway — Enterprise WhatsApp Marketing & AI Chatbot Suite</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- ========================================== -->
   <!-- WARRIORPLUS SALES PAGE TRACKING CODE (PIXEL) -->
@@ -29,6 +30,11 @@
       --radius-lg: 16px;
       --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      
+      /* Competitor-inspired parchment style */
+      --cream-bg: #f4ead0;
+      --cream-text: #1d0c20;
+      --cream-border: rgba(29, 12, 32, 0.12);
     }
 
     * {
@@ -37,25 +43,35 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--text-primary);
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
+    }
+
+    .narrow {
+      max-width: 760px;
+      margin: 0 auto;
     }
 
     /* ====== HEADER ====== */
     header {
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
-      background: rgba(9, 14, 17, 0.8);
+      background: rgba(9, 14, 17, 0.85);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
@@ -87,7 +103,7 @@
 
     .nav-links {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       align-items: center;
     }
 
@@ -107,7 +123,7 @@
       background: var(--bg-panel);
       border: 1px solid var(--border);
       color: var(--text-primary);
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: var(--radius);
       text-decoration: none;
       font-size: 0.9rem;
@@ -118,13 +134,13 @@
     .btn-login:hover {
       background: var(--accent);
       border-color: var(--accent);
+      color: #fff;
     }
 
     /* ====== HERO SECTION ====== */
     .hero {
-      padding: 80px 0;
+      padding: 80px 0 40px;
       text-align: center;
-      position: relative;
     }
 
     .hero-badge {
@@ -132,35 +148,47 @@
       background: rgba(0, 168, 132, 0.1);
       border: 1px solid rgba(0, 168, 132, 0.2);
       color: var(--accent);
-      padding: 6px 14px;
+      padding: 6px 16px;
       border-radius: 30px;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 24px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
     .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -1px;
-      margin-bottom: 20px;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(34px, 4.5vw, 56px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
       color: #fff;
     }
 
     .hero h1 span {
-      background: linear-gradient(90deg, var(--accent), #3b82f6);
+      background: linear-gradient(90deg, var(--accent), #52a8ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      font-style: italic;
     }
 
     .hero p {
-      font-size: 1.15rem;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(18px, 2.2vw, 22px);
+      font-weight: 300;
       color: var(--text-secondary);
-      max-width: 700px;
-      margin: 0 auto 36px auto;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.5;
+    }
+
+    .hl {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0 4px;
+      font-weight: 600;
     }
 
     .mockup-container {
@@ -168,10 +196,8 @@
       background: var(--bg-panel);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 10px;
+      padding: 8px;
       box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
     }
 
     .mockup-img {
@@ -182,34 +208,159 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    /* ====== FEATURES ====== */
-    .features {
+    /* ====== EDITORIAL SALES LETTER (LONG FORM) ====== */
+    .sales-letter {
       padding: 80px 0;
       border-top: 1px solid var(--border);
     }
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
+    .prose {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      line-height: 1.7;
+      color: var(--text-primary);
     }
 
-    .section-title h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 12px;
+    .prose p {
+      margin-bottom: 24px;
+    }
+
+    .prose strong {
       color: #fff;
+      font-weight: 600;
     }
 
-    .section-title p {
-      color: var(--text-secondary);
+    .handwritten {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      color: var(--accent);
+      display: block;
+      margin: 10px 0;
+    }
+
+    /* ====== PARCHMENT CREAM BAND ====== */
+    .band-cream {
+      background-color: var(--cream-bg);
+      color: var(--cream-text);
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      padding: 90px 24px;
+      position: relative;
+    }
+
+    .band-cream::before, .band-cream::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(29, 12, 32, 0.15), transparent);
+    }
+
+    .band-cream::before { top: 0; }
+    .band-cream::after { bottom: 0; }
+
+    .band-cream h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(28px, 3.5vw, 42px);
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: var(--cream-text);
+      text-align: center;
+    }
+
+    .band-cream h2 em {
+      color: #9a2d66;
+      font-style: italic;
+    }
+
+    .band-cream p.subtitle {
+      text-align: center;
+      color: rgba(29, 12, 32, 0.7);
+      margin-bottom: 50px;
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+    }
+
+    .band-cream .prose {
+      color: var(--cream-text);
+    }
+
+    .band-cream .prose strong {
+      color: #000;
+    }
+
+    /* ====== BULLET TIMELINE ====== */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 50px auto;
+    }
+
+    .timeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+    }
+
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 38px;
+      bottom: -38px;
+      width: 2px;
+      background: rgba(29, 12, 32, 0.15);
+    }
+
+    .timeline-step:last-child::before {
+      display: none;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #9a2d66;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .step-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #000;
+    }
+
+    .step-content p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(29, 12, 32, 0.8);
+      line-height: 1.5;
+    }
+
+    /* ====== FEATURES GRID ====== */
+    .features {
+      padding: 90px 0;
+      border-top: 1px solid var(--border);
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      gap: 24px;
+      margin-top: 50px;
     }
 
     .feature-card {
@@ -222,7 +373,7 @@
 
     .feature-card:hover {
       border-color: var(--border-focus);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .feature-icon {
@@ -244,6 +395,7 @@
     }
 
     .feature-card h3 {
+      font-family: 'Inter', sans-serif;
       font-size: 1.15rem;
       font-weight: 700;
       margin-bottom: 10px;
@@ -253,18 +405,18 @@
     .feature-card p {
       font-size: 0.9rem;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* ====== PRICING SECTION ====== */
     .pricing {
-      padding: 80px 0;
+      padding: 90px 0;
       border-top: 1px solid var(--border);
       background: linear-gradient(180deg, var(--bg), rgba(0, 168, 132, 0.03));
     }
 
     .pricing-card {
-      max-width: 500px;
+      max-width: 540px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.02);
       border: 2px solid var(--accent);
@@ -283,15 +435,18 @@
       transform: translateX(-50%);
       background: var(--accent);
       color: #fff;
-      padding: 4px 16px;
+      padding: 4px 20px;
       border-radius: 30px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .pricing-card h3 {
-      font-size: 1.5rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
       margin-bottom: 8px;
       color: #fff;
     }
@@ -303,12 +458,12 @@
     .price-regular {
       text-decoration: line-through;
       color: var(--text-muted);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-right: 8px;
     }
 
     .price-sale {
-      font-size: 3rem;
+      font-size: 3.2rem;
       font-weight: 800;
       color: #fff;
     }
@@ -321,7 +476,7 @@
     }
 
     .pricing-features li {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       margin-bottom: 12px;
       color: var(--text-secondary);
       display: flex;
@@ -337,48 +492,24 @@
 
     /* ====== BUY BUTTON AREA ====== */
     .buy-button-wrapper {
-      margin: 30px 0 15px 0;
+      margin: 30px 0 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
 
-    /* Fallback default design until the user pastes the real WarriorPlus button */
-    .wplus-fallback-btn {
-      display: inline-block;
-      background-color: #ff9900;
-      background-image: linear-gradient(180deg, #ffb300, #ff8c00);
-      border: 1px solid #d97706;
-      color: #000;
-      padding: 14px 32px;
-      font-size: 1.2rem;
-      font-weight: 800;
-      border-radius: 8px;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
-      transition: all var(--transition);
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .wplus-fallback-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
-    }
-
     /* ====== COMPLIANCE DISCLAIMERS ====== */
     .disclaimer-box {
-      margin-top: 15px;
-      padding: 14px;
+      margin-top: 20px;
+      padding: 16px;
       border-radius: 8px;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
       border: 1px solid var(--border);
-      font-size: 0.725rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       text-align: left;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .disclaimer-box strong {
@@ -390,7 +521,7 @@
     /* ====== FOOTER ====== */
     footer {
       background: #06090c;
-      padding: 60px 0 40px 0;
+      padding: 60px 0 40px;
       border-top: 1px solid var(--border);
       text-align: center;
       font-size: 0.8rem;
@@ -417,9 +548,9 @@
 
     .footer-disclaimer {
       max-width: 800px;
-      margin: 24px auto 0 auto;
+      margin: 24px auto 0;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.55;
       padding-top: 24px;
       border-top: 1px solid rgba(255, 255, 255, 0.03);
     }
@@ -427,7 +558,7 @@
     @media (max-width: 768px) {
       .hero h1 { font-size: 2.2rem; }
       .pricing-card { padding: 24px; }
-      .price-sale { font-size: 2.5rem; }
+      .price-sale { font-size: 2.6rem; }
     }
   </style>
 </head>
@@ -441,6 +572,7 @@
         WPGateway
       </div>
       <div class="nav-links">
+        <a href="#story" class="nav-link">The Story</a>
         <a href="#features" class="nav-link">Features</a>
         <a href="#pricing" class="nav-link">Pricing</a>
         <a href="/dashboard" class="btn-login">Dashboard Login</a>
@@ -451,12 +583,12 @@
   <!-- ====== HERO ====== -->
   <section class="hero">
     <div class="container">
-      <div class="hero-badge">One-Time Payment • Self-Hosted</div>
-      <h1>Smarter WhatsApp Marketing with <span>Built-in Llama-3 AI</span></h1>
-      <p>Connect unlimited WhatsApp accounts, run targeted campaigns with randomized delays, automate auto-replies, and generate high-conversion templates on the fly.</p>
+      <div class="hero-badge">Special Launch Offer • Full Access</div>
+      <h1>Forget 15% Email Open Rates: Command a <span>98% Open Rate</span> directly on WhatsApp with Zero Monthly Fees.</h1>
+      <p>Connect unlimited phone channels, assign SOCKS5 proxies to each line, schedule campaigns, and let Llama-3 AI write your campaigns.</p>
       
       <div style="margin-bottom: 40px;">
-        <a href="#pricing" class="wplus-fallback-btn" style="background: var(--accent); background-image: none; border-color: var(--accent); color: #fff; font-size: 1rem; box-shadow: none;">Get WPGateway Now</a>
+        <a href="#pricing" class="btn-login" style="background: var(--accent); border-color: var(--accent); color: #fff; padding: 14px 32px; font-size: 1rem; box-shadow: none;">Access the Launch Special Now</a>
       </div>
 
       <div class="mockup-container">
@@ -465,12 +597,74 @@
     </div>
   </section>
 
-  <!-- ====== FEATURES ====== -->
+  <!-- ====== SALES LETTER ====== -->
+  <section class="sales-letter" id="story">
+    <div class="container narrow">
+      <div class="prose">
+        <p>Dear Marketer,</p>
+        
+        <p>It’s no secret: <strong>email marketing is struggling.</strong></p>
+        
+        <p>You spend hours writing the perfect email, designing standard layouts, and segmenting lists—only to get hit by spam filters. At best, you might see a 15% open rate. That means 85% of your list never even hears what you have to say.</p>
+        
+        <p>Meanwhile, there is one channel where people spend hours every single day. A channel where messages are opened within minutes of receipt, commanding a <span class="hl">staggering 98% open rate</span>.</p>
+        
+        <p>That channel is <strong>WhatsApp.</strong></p>
+        
+        <p>But until now, doing marketing on WhatsApp was either extremely expensive—forcing you to pay thousands to the official APIs—or extremely risky, getting your personal numbers banned on day one by automated detection systems.</p>
+        
+        <span class="handwritten">That's why we built WPGateway.</span>
+        
+        <p>We designed WPGateway to be the ultimate self-hosted solution. It runs completely within your own control (zero monthly fees) and comes built-in with <strong>advanced anti-ban infrastructure</strong>: randomized delay triggers, message spintax formatting, proxy allocation per line, and automated multi-device rotation.</p>
+        
+        <p>And the best part? You don't even have to write the campaigns yourself. WPGateway integrates the open-source <strong>Llama-3 AI</strong> directly into your panel to generate campaigns, rewrite messages, and answer customers automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PARCHMENT CREAM BAND ====== -->
+  <section class="band-cream">
+    <div class="container">
+      <h2>How Simple is it? <em>Here is the 3-Step Setup</em></h2>
+      <p class="subtitle">No technical degree required. You can have your campaign running in under 5 minutes.</p>
+      
+      <div class="timeline">
+        <!-- Step 1 -->
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Link Your WhatsApp Channels</h3>
+            <p>Simply open the dashboard and link your WhatsApp number by scanning the standard QR code or typing a pairing code. You can link multiple numbers to rotate sending and divide the load.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Assign Your Proxies (Optional but Recommended)</h3>
+            <p>To keep your accounts absolutely safe, you can assign a dedicated SOCKS5 or HTTP proxy to each connected number. The system routes API requests through the proxy, hiding your IP footprint.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Let AI Write and Automate Campaigns</h3>
+            <p>Tell the Llama-3 AI writing assistant what you want to sell. It creates a message with rich emojis, custom variables <code>{Name}</code>, and spintax variables <code>{Hello|Hi}</code>. Hit send, and watch messages deliver smoothly with random delays.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FEATURES Grid ====== -->
   <section class="features" id="features">
     <div class="container">
-      <div class="section-title">
-        <h2>Engineered for Performance & Security</h2>
-        <p>A full-fledged bulk marketing automation suite and alert gateway designed without limitations.</p>
+      <div style="text-align: center; margin-bottom: 50px;">
+        <h2 style="font-family: 'Fraunces', serif; font-size: 2.2rem; margin-bottom: 15px; color: #fff;">Under the Hood of WPGateway</h2>
+        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Everything you need to automate your campaigns and notification pipelines with absolute security.</p>
       </div>
 
       <div class="features-grid">
@@ -534,9 +728,9 @@
   <!-- ====== PRICING ====== -->
   <section class="pricing" id="pricing">
     <div class="container">
-      <div class="section-title">
-        <h2>Special Launch Offer — Full Access</h2>
-        <p>Get full access to WPGateway today at a special discounted one-time price.</p>
+      <div style="text-align: center; margin-bottom: 50px;">
+        <h2 style="font-family: 'Fraunces', serif; font-size: 2.2rem; margin-bottom: 15px; color: #fff;">Get Full Access to WPGateway</h2>
+        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">No monthly fees, no hidden API usage limits. Pay once, host it yourself, and take absolute control.</p>
       </div>
 
       <div class="pricing-card">
@@ -583,6 +777,7 @@
   <footer>
     <div class="container">
       <div class="footer-links">
+        <a href="#story" class="footer-link">The Story</a>
         <a href="#features" class="footer-link">Features</a>
         <a href="#pricing" class="footer-link">Pricing</a>
         <a href="/privacy" class="footer-link">Privacy Policy</a>
