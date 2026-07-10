@@ -92,7 +92,7 @@ def register(user_in: schemas.UserRegister, db: Session = Depends(get_db)):
         email=user_in.email,
         hashed_password=hashed_pwd,
         api_key=api_key,
-        credits=1000 # Give 1000 free starting credits
+        credits=10 # Give 10 free starting credits to limit demo abuse
     )
     db.add(new_user)
     db.commit()
