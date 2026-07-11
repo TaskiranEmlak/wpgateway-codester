@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPGateway 50X Swipe File Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Fraunces', 'serif'],
+                    },
+                    colors: {
+                        wp_dark: '#0b141a',
+                        wp_panel: '#111b21',
+                        wp_card: '#202c33',
+                        wp_input: '#2a3942',
+                        wp_green: '#00a884',
+                        wp_green_hover: '#06cf9c',
+                        wp_border: '#222e35'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for premium dark SaaS look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b141a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3942;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00a884;
+        }
+        .spintax-highlighter {
+            color: #00a884;
+            font-weight: 600;
+        }
+        .variable-highlighter {
+            color: #52a8ff;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-wp_dark text-gray-200 font-sans antialiased min-height-screen">
+
+    <!-- TOP BRAND BAR -->
+    <header class="bg-wp_panel border-b border-wp_border sticky top-0 z-50 px-6 py-4 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-wp_green rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,168,132,0.4)]">
+                    <svg class="w-6 h-6 text-wp_dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-white tracking-tight">WPGateway <span class="text-wp_green text-xs bg-wp_green/10 px-2 py-0.5 rounded ml-1 border border-wp_green/20">50X SWIPE FILE</span></h1>
+                    <p class="text-xs text-gray-400">High-Converting Copywriter Templates Vault</p>
+                </div>
+            </div>
+            <!-- Notification Hub -->
+            <div class="flex items-center gap-4">
+                <span class="text-sm bg-wp_card px-4 py-2 rounded-lg border border-wp_border text-gray-300">
+                    Active Templates: <strong class="text-wp_green">50 / 50 Verified</strong>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN WORKSPACE -->
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- LEFT PANEL: CONTROLS & LIVE MODIFIER -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bg-wp_panel border border-wp_border rounded-2xl p-6 shadow-xl sticky top-24">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-wp_green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        Live Copy Modifier
+                    </h3>
+                    <p class="text-xs text-gray-400 mb-6">Customize variables in real-time. Changes will instantly update the templates below for fast copywriting.</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Custom Customer Name ({Name})</label>
+                            <input type="text" id="var-name" value="John" oninput="updateLivePreview()" class="w-full bg-wp_dark border border-wp_border focus:border-wp_green rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Custom Promo/Coupon Code ({Code})</label>
+                            <input type="text" id="var-code" value="SAVE50" oninput="updateLivePreview()" class="w-full bg-wp_dark border border-wp_border focus:border-wp_green rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Business Name ({Company})</label>
+                            <input type="text" id="var-company" value="Our Store" oninput="updateLivePreview()" class="w-full bg-wp_dark border border-wp_border focus:border-wp_green rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-wp_border text-xs text-gray-400 space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-wp_green inline-block"></span>
+                            <span>Green blocks represent <strong class="text-white">Spintax</strong> variables.</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-400 inline-block"></span>
+                            <span>Blue blocks represent customized values.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: TEMPLATE SEARCH, FILTER, AND GRID -->
+            <div class="lg:col-span-8 space-y-6">
+                
+                <!-- FILTER BAR -->
+                <div class="bg-wp_panel border border-wp_border rounded-2xl p-4 flex flex-col md:flex-row gap-4 justify-between items-center shadow-lg">
+                    <!-- Search Input -->
+                    <div class="relative w-full md:w-72">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </span>
+                        <input type="text" id="search-bar" placeholder="Search templates..." oninput="filterTemplates()" class="w-full bg-wp_dark border border-wp_border focus:border-wp_green rounded-xl pl-9 pr-4 py-2.5 text-xs text-white focus:outline-none transition-all">
+                    </div>
+                    <!-- Categories Tabs -->
+                    <div class="flex flex-wrap gap-1.5 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+                        <button onclick="setActiveCategory('all')" id="tab-all" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_green text-wp_dark shadow-lg transition-all">All</button>
+                        <button onclick="setActiveCategory('ecommerce')" id="tab-ecommerce" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_dark border border-wp_border text-gray-400 hover:text-white transition-all">E-commerce</button>
+                        <button onclick="setActiveCategory('realestate')" id="tab-realestate" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_dark border border-wp_border text-gray-400 hover:text-white transition-all">Real Estate</button>
+                        <button onclick="setActiveCategory('saas')" id="tab-saas" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_dark border border-wp_border text-gray-400 hover:text-white transition-all">SaaS & Digital</button>
+                        <button onclick="setActiveCategory('local')" id="tab-local" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_dark border border-wp_border text-gray-400 hover:text-white transition-all">Local Services</button>
+                        <button onclick="setActiveCategory('agency')" id="tab-agency" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_dark border border-wp_border text-gray-400 hover:text-white transition-all">B2B Agency</button>
+                    </div>
+                </div>
+
+                <!-- TEMPLATE GRID (DYNAMICAL RESIZED & RENDERED VIA JS) -->
+                <div id="templates-grid" class="space-y-6">
+                    <!-- Cards will be populated here by javascript -->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50"></div>
+
+    <!-- MAIN INTERACTIVE ENGINE -->
+    <script>
+        // Database of exactly 50 Premium WhatsApp Campaign Templates
+        const templatesDb = [
+            // CATEGORY: E-COMMERCE & RETAIL (1-10)
+            {
+                id: 1,
+                category: 'ecommerce',
+                title: '🛒 Abandoned Cart Recovery (Direct Offer)',
+                text: `*{Hi|Hey|Hello} {Name}!* 🌟\n\nI’m writing to you directly because we noticed you left some amazing items behind in your shopping cart at *{Company}*... and honestly, we couldn't let you miss out on these!\n\nWe completely understand that life gets busy, browser tabs get closed accidentally, or maybe you just got distracted. That’s why we saved your cart secure and sound.\n\nTo make this an absolute no-brainer for you, I’ve personally authorized an exclusive *{10%|15%|20%} VIP discount* on your entire order.\n\n🎁 *Your Private Promo Code:* *{Code}*\n\nHere is how to claim your items and save:\n1️⃣ Click the secure link below\n2️⃣ Your cart will automatically load with your reserved items\n3️⃣ Apply code *{Code}* at checkout to watch the price drop instantly!\n\n👉 *Complete Your Reserved Purchase Here:* {Link}\n\n*Why choose {Company}?*\n✅ *Free Tracked Shipping* on your order today\n✅ *30-Day Money-Back Guarantee* - absolute peace of mind\n✅ *24/7 Dedicated Support* ready to help you\n\n⚠️ *Crucial Warning:* This private discount and your cart reservation will expire in exactly 24 hours to free up inventory for other customers on our waitlist. Don't let your favorites slip away!`
+            },
+            {
+                id: 2,
+                category: 'ecommerce',
+                title: '⚡ Flash Sale Event Announcement',
+                text: `🚨 *FLASH SALE ALERT - GOING LIVE NOW* 🚨\n\n*{Hey|Hello|Hi} {Name},*\n\nThis is not a drill! For the next 3 hours ONLY, *{Company}* is launching a store-wide flash sale. We have cut prices by up to 50% across our entire premium collection!\n\nBecause you are a valued contact, you can stack an extra discount using your VIP passcode at checkout.\n\n🎁 *Your Extra Stackable Code:* *{Code}*\n\n👉 *Shop the Flash Sale Instantly:* {Link}\n\n*Here is what is currently flying off the shelves:*\n🔥 Our best-selling apparel and accessories\n🔥 Limited-run designer collectibles\n🔥 Season essentials (over 40% off before code!)\n\n⚠️ *Stock is highly limited.* We only have a handful of units reserved for this flash window. Once the countdown timer hits zero, the prices return to normal and this code is deactivated.\n\nHappy shopping, and act fast! 🛍️`
+            },
+            {
+                id: 3,
+                category: 'ecommerce',
+                title: '🆕 New Collection/Product Launch',
+                text: `*{Hi|Hey|Hello} {Name}!* 🌸\n\nIt is finally here. After 6 months of secret designs, feedback loops, and premium sourcing, we are incredibly thrilled to introduce the brand new Autumn Collection at *{Company}*.\n\nEvery single piece in this collection is handcrafted with sustainable materials, designed for maximum daily comfort and unmatched modern style.\n\nBecause you are on our VIP early-access list, we are granting you first dibs *24 hours before the public release tomorrow!*\n\n🎟️ *Your Early Access Passcode:* *{Code}*\n\n👉 *Secure Your Favorites First:* {Link}\n\n*What makes this collection different:*\n✨ Limited-run fabrics - we do not mass produce\n✨ Reinforced stitching for lifetime durability\n✨ Tailored fit adjusted based on your feedback\n\nBe the first to wear the trend before the public launch goes live and sizes sell out!`
+            },
+            {
+                id: 4,
+                category: 'ecommerce',
+                title: '💸 VIP Loyalty Reward & Gift',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nI’m writing to you today as the founder of *{Company}*. I was reviewing our customer list this morning, and your name stood out as one of our most loyal supporters. \n\nTo show my sincere appreciation, I have credited a special VIP gift worth $20 into your account! 🎁\n\nThere is no minimum spend required to use this credit. You can apply it to anything you like in our store.\n\n🔑 *Your Exclusive Gift Code:* *{Code}*\n\n👉 *Redeem Your $20 VIP Gift Here:* {Link}\n\n*My personal recommendations for you:*\n⭐ Our newly upgraded daily organizers\n⭐ The signature organic cotton loungewear\n\nThank you once again for being a vital part of the {Company} family. Have a wonderful week!`
+            },
+            {
+                id: 5,
+                category: 'ecommerce',
+                title: '📦 Subscription Box Push & FOMO',
+                text: `*{Hi|Hey|Hello} {Name}!* 📦\n\nOur monthly curated box is closing in exactly 6 hours, and this month's selection is completely mind-blowing!\n\nWe have packed over $120 worth of trending items inside, but you can secure yours today for only $39! It is the ultimate self-care package delivered straight to your door.\n\nApply code *{Code}* at checkout to get an extra surprise item for free in your first box.\n\n👉 *Secure Your Subscription Box Now:* {Link}\n\n*What to expect inside this month's box:*\n🎁 3 full-sized award-winning skincare essentials\n🎁 1 premium limited-edition home organizer\n🎁 Exclusive community access and monthly member discounts\n\nDon't say we didn't warn you when the timer hits zero! 😉`
+            },
+            {
+                id: 6,
+                category: 'ecommerce',
+                title: '🔄 Customer Win-Back Campaign',
+                text: `*{Hey|Hi|Hello} {Name}, we miss you!* 🥺\n\nIt's been a while since your last visit to *{Company}*, and we wanted to check in to see how you are doing!\n\nWe’ve recently upgraded our entire delivery network, introduced 100+ new items, and completely revamped our customer support based on your feedback.\n\nTo welcome you back with open arms, please take *{20%|25%|30%} off* your next order.\n\n🎟️ *Your Welcome Back Code:* *{Code}*\n\n👉 *Browse What\'s New in Our Store:* {Link}\n\nLet's catch up and make some new memories together!`
+            },
+            {
+                id: 7,
+                category: 'ecommerce',
+                title: '⭐ Product Review & Reward Loop',
+                text: `*{Hi|Hey|Hello} {Name}!* ⭐\n\nThank you for your recent purchase from *{Company}*. We hope you love your new items!\n\nCould you spare 60 seconds to tell us how we did? Your feedback helps us improve every day. As a thank you, we'll send you a 15% discount code for your next purchase.\n\n👉 *Leave Your Review Here:* {Link}\n\nWe appreciate you!`
+            },
+            {
+                id: 8,
+                category: 'ecommerce',
+                title: '🚚 Free Shipping Weekend Incentive',
+                text: `*{Hey|Hello|Hi} {Name}!* 🚚\n\nGot your eye on something special? We have got some fantastic news. From now until Sunday midnight, *{Company}* is offering *100% FREE SHIPPING* on all orders, with no minimum spend!\n\nCombine this with code *{Code}* for an extra discount at checkout.\n\n👉 *Fill Your Cart Now:* {Link}\n\nNo heavy boxes to carry. We deliver straight to your doorstep!`
+            },
+            {
+                id: 9,
+                category: 'ecommerce',
+                title: '🎉 Customer Anniversary Celebration',
+                text: `*Happy Shopping Anniversary, {Name}!* 🎉\n\nExactly one year ago today, you made your very first order with *{Company}*. Time flies when you are having fun!\n\nTo celebrate this milestone, we want to treat you like royalty today. Enjoy a massive {25%|30%} off on us.\n\nYour Anniversary Code: *{Code}*\n\n👉 *Claim Your Special Gift:* {Link}\n\nHere is to many more years of great style together!`
+            },
+            {
+                id: 10,
+                category: 'ecommerce',
+                title: '🎒 Back to School / Seasonal Promo',
+                text: `*Ready to upgrade your gear, {Name}?* 🎒\n\nWhether you are heading back to the office, starting a new semester, or just looking to refresh your setup, *{Company}* has got you covered.\n\nGet up to 40% off on all bags, organizers, and tech accessories.\n\nUse Code: *{Code}*\n\n👉 *Shop the Collection:* {Link}\n\nStart your new season with the ultimate upgrade!`
+            },
+
+            // CATEGORY: REAL ESTATE (11-20)
+            {
+                id: 11,
+                category: 'realestate',
+                title: '🏡 New Exclusive Listing Alert',
+                text: `*{Hi|Hello|Hey} {Name},*\n\nA stunning new property has just hit the market in your preferred neighborhood! 🏡\n\nThis exquisite 4-bedroom, 3-bathroom home features a fully remodeled chef's kitchen, high ceilings, and a private pool oasis.\n\nBecause you are on our VIP list, you are getting this notification before it is uploaded to public portals.\n\n👉 *View HD Photos & Pricing:* {Link}\n\nReply to this message with "INFO" if you'd like to schedule a private tour.`
+            },
+            {
+                id: 12,
+                category: 'realestate',
+                title: '📅 Open House Private Invitation',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nYou are cordially invited to our exclusive private Open House event this Saturday! 🥂\n\nCome tour this breathtaking modern villa located in the heart of the city. We will be serving light refreshments and offering exclusive buyer incentives on the spot.\n\nEvent Code for RSVP: *{Code}*\n\n👉 *View Location & Details:* {Link}\n\nReply "YES" to confirm your attendance. Spots are limited to preserve privacy.`
+            },
+            {
+                id: 13,
+                category: 'realestate',
+                title: '📈 Free Home Valuation & Equity Check',
+                text: `*{Hi|Hey|Hello} {Name}!*\n\nHave you ever wondered what your home is actually worth in today's surging market? 📈\n\nHome values in your area have increased by up to 18% over the past year. We can prepare a comprehensive, custom Comparative Market Analysis for you, completely free of charge.\n\n👉 *Request Your Free Valuation:* {Link}\n\nFind out how much equity you are sitting on today!`
+            },
+            {
+                id: 14,
+                category: 'realestate',
+                title: '🔥 Off-Market Investor Deal Alert',
+                text: `🚨 *INVESTOR SPECIAL ALERT* 🚨\n\n*{Hey|Hello|Hi} {Name},*\n\nWe have just secured an incredible off-market fix-and-flip opportunity. This property is priced {20%|25%|30%} below market value and requires minimal cosmetic repairs.\n\nEstimated ARV: $450,000. Asking Price: $290,000.\n\nAccess Passcode: *{Code}*\n\n👉 *Get Deal Details & Calculations:* {Link}\n\nThis will sell today. Serious cash buyers only. Reply "DEAL" to speak with our investment lead.`
+            },
+            {
+                id: 15,
+                category: 'realestate',
+                title: '📉 Price Reduction Opportunity',
+                text: `*Big news, {Name}!* 📉\n\nOne of our most popular listings just had a major price drop. The sellers are highly motivated and have just slashed the price by $35,000!\n\nThis is your chance to secure an amazing home at an unbeatable value.\n\n👉 *See New Pricing & Photos:* {Link}\n\nReply "TOUR" to visit this property before the weekend rush.`
+            },
+            {
+                id: 16,
+                category: 'realestate',
+                title: '🏙️ Luxury Penthouse Tour Request',
+                text: `*{Hi|Hello|Hey} {Name},*\n\nDreaming of life above the clouds? 🏙️\n\nWe are hosting private, high-floor tours of our newly completed penthouse suites at *{Company}* Residences. Enjoy panoramic city skyline views, private elevators, and five-star resort amenities.\n\n👉 *Schedule Your Private Tour:* {Link}\n\nExperience luxury living at its finest.`
+            },
+            {
+                id: 17,
+                category: 'realestate',
+                title: '📊 Local Market Report Update',
+                text: `*{Hey|Hi|Hello} {Name},* \n\nThe real estate market is changing rapidly. To help you make smart decisions, we have just compiled the latest quarterly housing report for your zip code. 📊\n\nDiscover average sales prices, average days on market, and neighborhood inventory shifts.\n\n👉 *Access Free Market Report:* {Link}\n\nKnowledge is power. Read the report today!`
+            },
+            {
+                id: 18,
+                category: 'realestate',
+                title: '🏢 Commercial / Office Space Lease',
+                text: `*Looking for the perfect office, {Name}?* 🏢\n\nPosition your business for success in our newly available commercial spaces at *{Company}* Tower. Located in the bustling financial district, featuring high-speed fiber, meeting rooms, and flexible floor plans.\n\n👉 *Download leasing brochure:* {Link}\n\nReply "OFFICE" for lease terms and pricing.`
+            },
+            {
+                id: 19,
+                category: 'realestate',
+                title: '🔑 First-Time Homebuyer Assistance Plan',
+                text: `*{Hi|Hey|Hello} {Name},*\n\nAre you tired of paying your landlord's mortgage? 🔑\n\nWe have helped over 300 families transition from renting to owning this year. With our special first-time buyer program, you can buy a home with as little as 3% down!\n\nUse Code: *{Code}* to access our zero-down matching program.\n\n👉 *Calculate Your Monthly Payment:* {Link}\n\nLet's get you the keys to your own home!`
+            },
+            {
+                id: 20,
+                category: 'realestate',
+                title: '🌳 Beautiful Suburban Land Plot Sale',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nBuild your dream home exactly the way you want it! 🌳\n\nWe have just released 15 premium suburban plots starting at just $79,000. Features mature trees, paved roads, and fully connected utilities, only 20 minutes from the city.\n\n👉 *View Plot Maps & Availability:* {Link}\n\nPlots are selling fast. Reserve yours today!`
+            },
+
+            // CATEGORY: SAAS, SOFTWARE & DIGITAL PRODUCTS (21-30)
+            {
+                id: 21,
+                category: 'saas',
+                title: '🚀 Free Trial Onboarding Welcome',
+                text: `*{Hi|Hey|Hello} {Name}!* 🚀\n\nWelcome to *{Company}*! We are absolutely thrilled to help you streamline your operations. Your free trial is now officially active.\n\nTo make sure you get maximum value, we have created a short 2-minute quick-start video guide.\n\n👉 *Watch the Onboarding Video:* {Link}\n\nIf you have any questions, just reply directly to this message. We are here to help!`
+            },
+            {
+                id: 22,
+                category: 'saas',
+                title: '💎 Premium Plan Upgrade Discount',
+                text: `*{Hey|Hello|Hi} {Name},*\n\nYour team has been doing incredible work on *{Company}*! To unlock advanced reports, unlimited projects, and priority API access, it is time to go Premium.\n\nUpgrade today and get {20%|30%|35%} off your first year.\n\nYour VIP Upgrade Code: *{Code}*\n\n👉 *Claim Premium Discount:* {Link}\n\nTake your business to the next level!`
+            },
+            {
+                id: 23,
+                category: 'saas',
+                title: '📣 Major Product Feature Update',
+                text: `*Big news, {Name}!* 📣\n\nWe have just rolled out one of our most requested features at *{Company}*: *The Multi-Channel Analytics Dashboard*.\n\nNow you can monitor all your campaigns, responses, and ROI charts in one unified view. No setup required, it is already live in your dashboard!\n\n👉 *Tour the New Feature:* {Link}\n\nWe hope this helps you grow even faster!`
+            },
+            {
+                id: 24,
+                category: 'saas',
+                title: '📅 Educational Webinar Invitation',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nReady to master marketing automation? 📅\n\nJoin our live masterclass this Thursday as we reveal the exact strategies top agencies use to scale to $20k/month without increasing ad spend.\n\nYour Seat Reservation Code: *{Code}*\n\n👉 *Secure Your Free Spot:* {Link}\n\nSee you in the training!`
+            },
+            {
+                id: 25,
+                category: 'saas',
+                title: '📖 Case Study & Video Breakdown',
+                text: `*{Hi|Hey|Hello} {Name}!* 📖\n\nHow did a small local gym add 143 new recurring members in just 30 days? \n\nWe sat down with the founder and broke down their entire automated funnel step-by-step. We made a free PDF report and video guide outlining the exact messages they sent.\n\n👉 *Download the Case Study:* {Link}\n\nCopy their exact funnel for your own business!`
+            },
+            {
+                id: 26,
+                category: 'saas',
+                title: '⚠️ Subscription Renewal Warning',
+                text: `*Urgent: {Name}, your subscription is expiring soon!* ⚠️\n\nYour plan for *{Company}* will expire in exactly 3 days. To avoid any service interruptions, API failures, or loss of project data, please update your billing details.\n\nUse Code: *{Code}* to lock in your current rate before prices increase next month.\n\n👉 *Update Your Billing Here:* {Link}\n\nNeed help? Reply to this message immediately.`
+            },
+            {
+                id: 27,
+                category: 'saas',
+                title: '💬 User Feedback & Feature Request survey',
+                text: `*{Hey|Hi|Hello} {Name},* \n\nWe want to build the absolute best software for you. What is the #1 feature we should add next to *{Company}*?\n\nFill out our quick 3-question survey and help shape the future of our product. As a thank you, we\'ll add 500 free credits to your account.\n\n👉 *Take the 60-Second Survey:* {Link}\n\nWe read every single response!`
+            },
+            {
+                id: 28,
+                category: 'saas',
+                title: '🔌 Integration Spotlight (Zapier/Make)',
+                text: `*{Hi|Hey|Hello} {Name}!* 🔌\n\nDid you know *{Company}* now fully integrates with Zapier and Make? \n\nThis means you can connect your lead forms, Google Sheets, or CRM directly to our gateway to send automated alerts instantly. No coding required!\n\n👉 *Connect Your Integrations:* {Link}\n\nSave hours of manual labor every single day.`
+            },
+            {
+                id: 29,
+                category: 'saas',
+                title: '🎉 Limited Lifetime Deal (LTD) Promo',
+                text: `*Stop paying monthly fees, {Name}!* 🛑\n\nFor a very limited time, *{Company}* is launching an exclusive Lifetime License. Pay once today, and get unlimited access forever!\n\nOnly 100 lifetime slots are available. Protect your budget and secure yours before they are gone.\n\nYour LTD Access Code: *{Code}*\n\n👉 *Get Lifetime Access Now:* {Link}\n\nNever pay another monthly SaaS invoice!`
+            },
+            {
+                id: 30,
+                category: 'saas',
+                title: '🤝 Partner / Affiliate Program Invite',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nDo you love using *{Company}*? Why not get paid for sharing it? 🤝\n\nJoin our partner program today and earn a recurring 30% lifetime commission on every user you refer to us. We provide all the banners, swipes, and tracking tools.\n\n👉 *Join the Affiliate Program:* {Link}\n\nLet\'s grow together!`
+            },
+
+            // CATEGORY: LOCAL BUSINESS & SERVICES (31-40)
+            {
+                id: 31,
+                category: 'local',
+                title: '💪 Gym Free Pass & Gym Tour',
+                text: `*{Hi|Hey|Hello} {Name}!* 💪\n\nNo more excuses. It is time to crush your fitness goals at *{Company}*!\n\nTo help you get started, we are giving you a free 3-Day VIP All-Access Pass, including access to all premium gym areas and group classes.\n\nYour VIP Pass Code: *{Code}*\n\n👉 *Claim Your Free Pass:* {Link}\n\nLet\'s get stronger together!`
+            },
+            {
+                id: 32,
+                category: 'local',
+                title: '🦷 Dental / Medical Checkup Reminder',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nJust a gentle reminder that you are due for your routine dental/medical checkup! 🦷\n\nMaintaining regular checkups is the absolute best way to protect your long-term health. We have available slots open this week.\n\n👉 *Book Your Appointment Instantly:* {Link}\n\nSee you soon at our clinic!`
+            },
+            {
+                id: 33,
+                category: 'local',
+                title: '💇 Salon / Spa Booking Promotion',
+                text: `*Time to pamper yourself, {Name}!* 💇‍♀️\n\nTreat yourself to a professional hair styling, facial, or relaxing massage at *{Company}*. You deserve some serious self-care!\n\nBook your appointment today and get an extra 20% off all styling and treatment packages.\n\nYour Promo Code: *{Code}*\n\n👉 *Book Your Session Here:* {Link}\n\nWe look forward to seeing you!`
+            },
+            {
+                id: 34,
+                category: 'local',
+                title: '🍔 Restaurant Weekend Special & Discount',
+                text: `*{Hey|Hello|Hi} {Name}!* 🍔\n\nHungry? We are serving our legendary wood-fired smoked burgers this weekend at *{Company}*!\n\nShow this message to your waiter to get a free basket of crispy onion rings and a craft drink with any main course purchase.\n\nYour Secret Code: *{Code}*\n\n👉 *View Our Weekend Menu:* {Link}\n\nSee you at our table!`
+            },
+            {
+                id: 35,
+                category: 'local',
+                title: '🚗 Car Detailing / Ceramic Coating Special',
+                text: `*{Hi|Hey|Hello} {Name}!* 🚗\n\nMake your car look showroom-fresh again! \n\nGet a professional full-service interior & exterior deep clean, leather conditioning, and windshield protection package at *{Company}*.\n\nBook today and get $30 off our premium detailing service.\n\nYour Service Code: *{Code}*\n\n👉 *Book Car Detailing Now:* {Link}\n\nYour car will thank you!`
+            },
+            {
+                id: 36,
+                category: 'local',
+                title: '📚 Private Tutoring / Language Course Promo',
+                text: `*Unlock your child\'s potential, {Name}!* 📚\n\nWe offer expert, certified private tutoring in Mathematics, Sciences, and English at *{Company}*. Boost grades and build learning confidence with our custom study programs.\n\n👉 *Get a Free Trial Lesson:* {Link}\n\nReply "STUDY" to speak with our learning counselor.`
+            },
+            {
+                id: 37,
+                category: 'local',
+                title: '🧘 Spa Massage Pack Promo',
+                text: `*{Hi|Hey|Hello} {Name}!* 🧘\n\nFeel the stress melt away. \n\nWe have put together an exclusive weekday relaxation package: a 60-minute Swedish massage followed by a mineral steam bath and detox tea.\n\nUse Code: *{Code}* to save $40 on this limited-time package.\n\n👉 *Purchase Gift Voucher:* {Link}\n\nEscape the daily grind!`
+            },
+            {
+                id: 38,
+                category: 'local',
+                title: '🔧 Plumbing & HVAC Safety Check',
+                text: `*Is your home ready for winter, {Name}?* 🔧\n\nAvoid costly emergency repairs. Our certified technicians at *{Company}* will perform a complete 15-point inspection of your heating/plumbing systems for just $49!\n\n👉 *Book Your Inspection:* {Link}\n\nReply "PIPE" for direct scheduling and pricing.`
+            },
+            {
+                id: 39,
+                category: 'local',
+                title: '🐶 Pet Grooming / Spa Package',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nYour furry friend deserves the royal treatment too! 🐶\n\nOur full-service grooming package includes a soothing bath, blow dry, nail trimming, ear cleaning, and custom styling at *{Company}*.\n\n👉 *Book Grooming Appointment:* {Link}\n\nBecause happy pets make happy homes!`
+            },
+            {
+                id: 40,
+                category: 'local',
+                title: '🏡 Contractor Home Renovation Estimate',
+                text: `*{Hi|Hey|Hello} {Name},*\n\nReady to transform your kitchen, bathroom, or outdoor deck? 🏡\n\nGet a free, zero-obligation, in-person estimate from our award-winning design team at *{Company}*.\n\nUse Code: *{Code}* for a $500 credit on any project over $5,000.\n\n👉 *Schedule Your Free Estimate:* {Link}\n\nLet\'s build your dream home!`
+            },
+
+            // CATEGORY: B2B AGENCY & CONSULTING (41-50)
+            {
+                id: 41,
+                category: 'agency',
+                title: '🔍 Cold Outreach Free Site/SEO Audit',
+                text: `*{Hi|Hey|Hello} {Name},*\n\nI was reviewing your website's search performance and noticed 3 critical errors that are currently causing you to lose valuable traffic to your main competitors.\n\nI have created a short 3-minute video recording detailing exactly how to fix these errors.\n\n👉 *Watch the Free Audit Video:* {Link}\n\nIf you find it useful, we can schedule a quick call to discuss execution. Reply "CALL" if interested.`
+            },
+            {
+                id: 42,
+                category: 'agency',
+                title: '📈 Free Growth/Strategy Consultation Call',
+                text: `*{Hey|Hello|Hi} {Name},*\n\nAre you ready to scale your revenue to the next level this quarter? \n\nWe are opening up 5 free Strategy Sessions this week with our head growth officer at *{Company}*. We will map out a customized, step-by-step acquisition roadmap for your business.\n\nUse Code: *{Code}* to bypass our application process.\n\n👉 *Book Strategy Call:* {Link}\n\nLet's build your growth engine!`
+            },
+            {
+                id: 43,
+                category: 'agency',
+                title: '🤝 Referral Bonus & Commission Partnership',
+                text: `*{Hi|Hey|Hello} {Name}!*\n\nDo you know other business owners who are struggling to find consistent clients?\n\nRefer them to our agency! For every client that signs a retainer with us, we will pay you a massive $500 cash referral bonus or credit it toward your current services.\n\n👉 *Get Your Referral Link:* {Link}\n\nWe love win-win partnerships!`
+            },
+            {
+                id: 44,
+                category: 'agency',
+                title: '🔥 Video Case Study Delivery',
+                text: `*How we generated 342 sales calls, {Name}!* 🔥\n\nWe have just released our private, unedited video case study showing exactly how we helped an e-commerce brand scale from $10k to $85k/month using high-converting WhatsApp automation.\n\nNo fluff, no theories. Just pure, actionable metrics.\n\n👉 *Watch the Case Study:* {Link}\n\nReply "STRATEGY" if you want to implement this in your business.`
+            },
+            {
+                id: 45,
+                category: 'agency',
+                title: '🎟️ Virtual Summit / Event Pass Promo',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nAre you attending the Global Marketing Summit this year? 🎟️\n\nWe have secured 15 free VIP passes for our closest clients and partners. Tour masterclasses on sales copy, traffic funnels, and organic branding from world-class experts.\n\nYour Free VIP Pass Code: *{Code}*\n\n👉 *Claim Your Free Summit Pass:* {Link}\n\nSee you at the event!`
+            },
+            {
+                id: 46,
+                category: 'agency',
+                title: '📈 High-Value Checklist PDF Delivery',
+                text: `*{Hi|Hey|Hello} {Name}!*\n\nHere is your free download of the *7-Step High-Ticket Client Acquisition Checklist* from *{Company}*.\n\nThis checklist includes the exact scripts, templates, and triggers we use to land $5k retainers.\n\n👉 *Download PDF Checklist:* {Link}\n\nFollow these steps to sign your next client this week!`
+            },
+            {
+                id: 47,
+                category: 'agency',
+                title: '💎 Mastermind Application Program Invitation',
+                text: `*{Hey|Hi|Hello} {Name},* \n\nAre you tired of trying to figure everything out on your own?\n\nApplications are now officially open for our exclusive elite B2B Mastermind program. Surrounds yourself with 25 highly motivated founders sharing real-time strategies, resources, and direct partnerships.\n\n👉 *Apply for the Mastermind:* {Link}\n\nLet's scale your agency together.`
+            },
+            {
+                id: 48,
+                category: 'agency',
+                title: '📚 High-Ticket Agency Lead Magnet',
+                text: `*{Hi|Hey|Hello} {Name}!*\n\nWant to know the secret to automated client acquisition? \n\nWe have bundled our private database of cold outreach email templates, LinkedIn scripts, and follow-up templates into one high-value toolkit.\n\n👉 *Download Lead Magnet Pack:* {Link}\n\nNever worry about empty pipelines again!`
+            },
+            {
+                id: 49,
+                category: 'agency',
+                title: '🚨 Pricing Increase / Spot Warning Alert',
+                text: `*Notice: Our retainer prices are increasing next month, {Name}!* 🚨\n\nDue to extremely high demand and limited team capacity, our agency pricing is going up by 25%. \n\nHowever, if you sign a contract before the end of this week, you can lock in our current lower rates forever!\n\n👉 *Secure Current Retainer Rates:* {Link}\n\nLet's scale your marketing without breaking your budget!`
+            },
+            {
+                id: 50,
+                category: 'agency',
+                title: '🤵 Fractional CMO / B2B Consulting Pitch',
+                text: `*{Dear|Hi|Hello} {Name},*\n\nCould your business benefit from world-class marketing leadership without the heavy $200k/year executive salary? 🤵\n\nOur Fractional CMO services at *{Company}* give you strategic guidance, funnel optimization, and team management at a fraction of the cost.\n\nUse Code: *{Code}* to schedule a free 30-minute operational assessment.\n\n👉 *Book Free Assessment:* {Link}\n\nLet us lead your growth engine!`
+            }
+        ];
+
+        // Active filter state
+        let activeCategory = 'all';
+
+        // Function to render templates to the grid
+        function renderTemplates() {
+            const grid = document.getElementById('templates-grid');
+            const searchVal = document.getElementById('search-bar').value.toLowerCase();
+            
+            // Get live values from input
+            const nameVal = document.getElementById('var-name').value || '{Name}';
+            const codeVal = document.getElementById('var-code').value || '{Code}';
+            const companyVal = document.getElementById('var-company').value || '{Company}';
+
+            grid.innerHTML = '';
+
+            // Filter templates based on category & search term
+            const filtered = templatesDb.filter(t => {
+                const matchesCategory = (activeCategory === 'all' || t.category === activeCategory);
+                const matchesSearch = (t.title.toLowerCase().includes(searchVal) || t.text.toLowerCase().includes(searchVal));
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="bg-wp_panel border border-wp_border rounded-2xl p-12 text-center text-gray-500">
+                        <svg class="w-12 h-12 mx-auto text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <p class="font-medium text-sm">No templates matched your search or filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Generate HTML for each template card
+            filtered.forEach(template => {
+                // Perform dynamic replacement for live preview
+                let previewText = template.text
+                    .replace(/{Name}/g, nameVal)
+                    .replace(/{Code}/g, codeVal)
+                    .replace(/{Company}/g, companyVal)
+                    .replace(/{Link}/g, 'https://wpgateway.link/your-offer');
+
+                // Generate highlighted text (highlights Spintax & Variables)
+                let highlightedText = highlightSyntax(previewText);
+
+                const card = document.createElement('div');
+                card.className = "bg-wp_panel border border-wp_border rounded-2xl p-6 shadow-lg space-y-4 hover:border-gray-700 transition-all";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start gap-4">
+                        <div>
+                            <span class="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-wp_green/10 text-wp_green border border-wp_green/20 mb-3">${template.category}</span>
+                            <h4 class="text-base font-bold text-white">${template.title}</h4>
+                        </div>
+                        <button onclick="copyToClipboard('${template.id}')" class="flex-shrink-0 bg-wp_green hover:bg-wp_green_hover text-wp_dark font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(0,168,132,0.15)]">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            Copy
+                        </button>
+                    </div>
+                    <div class="relative bg-wp_dark border border-wp_border rounded-xl p-4 overflow-x-auto">
+                        <pre class="text-xs text-gray-300 font-mono whitespace-pre-wrap leading-relaxed select-all" id="text-container-${template.id}">${highlightedText}</pre>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Highlight Spintax and variables with colors
+        function highlightSyntax(text) {
+            // Highlight customized variables (blue)
+            const nameVal = document.getElementById('var-name').value || '{Name}';
+            const codeVal = document.getElementById('var-code').value || '{Code}';
+            const companyVal = document.getElementById('var-company').value || '{Company}';
+
+            let escaped = escapeHtml(text);
+
+            // Highlight Spintax `{hi|hello}`
+            escaped = escaped.replace(/\{([^{}]*\|[^{}]*)\}/g, '<span class="spintax-highlighter">{$1}</span>');
+
+            // Highlight inputs
+            if (nameVal && nameVal !== '{Name}') {
+                escaped = escaped.replace(new RegExp(escapeRegExp(nameVal), 'g'), `<span class="variable-highlighter">${nameVal}</span>`);
+            }
+            if (codeVal && codeVal !== '{Code}') {
+                escaped = escaped.replace(new RegExp(escapeRegExp(codeVal), 'g'), `<span class="variable-highlighter">${codeVal}</span>`);
+            }
+            if (companyVal && companyVal !== '{Company}') {
+                escaped = escaped.replace(new RegExp(escapeRegExp(companyVal), 'g'), `<span class="variable-highlighter">${companyVal}</span>`);
+            }
+
+            return escaped;
+        }
+
+        // Copy to clipboard with iframe-safe fallback
+        function copyToClipboard(templateId) {
+            const template = templatesDb.find(t => t.id == templateId);
+            if (!template) return;
+
+            // Get live values from input
+            const nameVal = document.getElementById('var-name').value || '{Name}';
+            const codeVal = document.getElementById('var-code').value || '{Code}';
+            const companyVal = document.getElementById('var-company').value || '{Company}';
+
+            let rawText = template.text
+                .replace(/{Name}/g, nameVal)
+                .replace(/{Code}/g, codeVal)
+                .replace(/{Company}/g, companyVal)
+                .replace(/{Link}/g, 'https://wpgateway.link/your-offer');
+
+            // Fallback copy execution for sandboxed environments
+            const el = document.createElement('textarea');
+            el.value = rawText;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast(`"${template.title.substring(2, 35)}..." successfully copied!`, 'success');
+            } catch (err) {
+                console.error('Error copying text: ', err);
+                showToast('Failed to copy. Please select the text manually.', 'error');
+            }
+            document.body.removeChild(el);
+        }
+
+        // Toast notifications
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `flex items-center gap-3 bg-wp_panel border ${type === 'success' ? 'border-wp_green/30 text-wp_green' : 'border-red-500/30 text-red-500'} px-5 py-4 rounded-xl shadow-2xl transition-all duration-300 transform translate-y-2 opacity-0 mb-3 max-w-sm`;
+            
+            toast.innerHTML = `
+                <div class="w-5 h-5 flex items-center justify-center rounded-full ${type === 'success' ? 'bg-wp_green/10' : 'bg-red-500/10'}">
+                    ${type === 'success' ? 
+                    '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : 
+                    '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>'}
+                </div>
+                <span class="text-xs font-semibold text-gray-200">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            // Remove toast
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Live updater
+        function updateLivePreview() {
+            renderTemplates();
+        }
+
+        // Category Filter
+        function setActiveCategory(category) {
+            activeCategory = category;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_dark border border-wp_border text-gray-400 hover:text-white transition-all";
+            });
+            document.getElementById(`tab-${category}`).className = "tab-btn px-4 py-2 rounded-xl text-xs font-semibold bg-wp_green text-wp_dark shadow-lg transition-all";
+            renderTemplates();
+        }
+
+        // Search Filter
+        function filterTemplates() {
+            renderTemplates();
+        }
+
+        // Escape HTML
+        function escapeHtml(string) {
+            return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // Escape regex patterns
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // Start App
+        window.onload = function () {
+            renderTemplates();
+        };
+    </script>
+</body>
+</html>
